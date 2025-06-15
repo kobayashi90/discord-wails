@@ -34,7 +34,6 @@ func main() {
 		Height:           800,
 		BackgroundColour: &options.RGBA{R: 54, G: 57, B: 63, A: 1}, // Discord's dark theme color
 		OnStartup:        app.OnStartup,
-		WebviewIsTransparent: false,
 		WindowStartState: options.Normal,
 	})
 
