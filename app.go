@@ -1,30 +1,14 @@
 package main
 
-import (
-    "embed"
-
-    "github.com/wailsapp/wails/v2"
-    "github.com/wailsapp/wails/v2/pkg/options"
-    "github.com/wailsapp/wails/v2/pkg/options/windows"
-)
-
-//go:embed all:frontend/dist
-var assets embed.FS
+import "github.com/webview/webview"
 
 func main() {
-    err := wails.Run(&options.App{
-        Title:            "Discord",
-        Width:            1024,
-        Height:           768,
-        Assets:           assets,
-        WindowStartState: options.Normal,
-        Windows: &windows.Options{
-            WebviewIsTransparent: false,
-            WindowIsTranslucent:  false,
-        },
-    })
+    debug := true
+    w := webview.New(debug)
+    defer w.Destroy()
 
-    if err != nil {
-        panic(err)
-    }
+    w.SetTitle("Discord")
+    w.SetSize(1280, 800, webview.HintNone)
+    w.Navigate("https://discord.com/app")
+    w.Run()
 }
