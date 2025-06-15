@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "$schema": "https://wails.io/schemas/config.v2.json",
   "name": "discord-wrapper",
   "outputfilename": "discord",
   "frontend": {
@@ -17,8 +17,7 @@
     "companyName": "Your Company",
     "productName": "Discord",
     "productVersion": "1.0.0",
-    "copyright": "Copyright © 2025",
+    "copyright": "Copyright © 2024",
     "comments": "A simple Discord wrapper built with Wails"
   }
 }
-
