@@ -1,28 +1,26 @@
 package main
 
 import (
+    "embed"
+
     "github.com/wailsapp/wails/v2"
     "github.com/wailsapp/wails/v2/pkg/options"
     "github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
-func main() {
-    appURL := "https://discord.com/app"
+//go:embed all:frontend/dist
+var assets embed.FS
 
+func main() {
     err := wails.Run(&options.App{
-        Title:  "Discord",
-        Width:  1024,
-        Height: 768,
-        Frameless: false,
-        StartHidden: false,
-        DisableResize: false,
+        Title:            "Discord",
+        Width:            1024,
+        Height:           768,
+        Assets:           assets,
+        WindowStartState: options.Normal,
         Windows: &windows.Options{
             WebviewIsTransparent: false,
             WindowIsTranslucent:  false,
-        },
-        Assets: nil, // We don't use a local frontend here
-        OnStartup: func(ctx *wails.Context) {
-            ctx.Runtime.Browser().OpenURL(appURL)
         },
     })
 
