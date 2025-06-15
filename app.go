@@ -1,72 +1,32 @@
 package main
 
 import (
-    "context"
-    "embed"
     "github.com/wailsapp/wails/v2"
     "github.com/wailsapp/wails/v2/pkg/options"
-    "github.com/wailsapp/wails/v2/pkg/options/assetserver"
-    "github.com/wailsapp/wails/v2/pkg/runtime"
+    "github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
-//go:embed all:frontend/dist
-var assets embed.FS
-
-type App struct {
-    ctx context.Context
-    isFullscreen bool
-}
-
-func NewApp() *App {
-    return &App{
-        isFullscreen: false,
-    }
-}
-
-func (a *App) OnStartup(ctx context.Context) {
-    a.ctx = ctx
-}
-
-func (a *App) SetFullscreen(fullscreen bool) {
-    if fullscreen {
-        runtime.WindowFullscreen(a.ctx)
-        a.isFullscreen = true
-    } else {
-        runtime.WindowUnfullscreen(a.ctx)
-        a.isFullscreen = false
-    }
-}
-
-func (a *App) IsFullscreen() bool {
-    // Use internal state as runtime.WindowIsFullscreen might not be reliable
-    return a.isFullscreen
-}
-
-func (a *App) ToggleFullscreen() {
-    if a.isFullscreen {
-        a.SetFullscreen(false)
-    } else {
-        a.SetFullscreen(true)
-    }
-}
-
 func main() {
-    app := NewApp()
+    appURL := "https://discord.com/app"
 
     err := wails.Run(&options.App{
         Title:  "Discord",
-        Width:  1280,
-        Height: 720,
-        AssetServer: &assetserver.Options{
-            Assets: assets,
-        },
-        OnStartup: app.OnStartup,
-        // Ensure the window can go fullscreen
+        Width:  1024,
+        Height: 768,
+        Frameless: false,
+        StartHidden: false,
         DisableResize: false,
-        Fullscreen: false,
+        Windows: &windows.Options{
+            WebviewIsTransparent: false,
+            WindowIsTranslucent:  false,
+        },
+        Assets: nil, // We don't use a local frontend here
+        OnStartup: func(ctx *wails.Context) {
+            ctx.Runtime.Browser().OpenURL(appURL)
+        },
     })
 
     if err != nil {
-        println("Error:", err.Error())
+        panic(err)
     }
 }
