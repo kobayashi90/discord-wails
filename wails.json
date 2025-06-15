@@ -1,18 +1,24 @@
 {
+  "version": 2,
   "name": "discord-wrapper",
-  "outputfilename": "DiscordWrapper",
-  "frontend:build": "echo 'Build complete'",
-  "frontend:dev": "echo 'Dev mode'",
-  "assetdir": "./frontend/dist",
-  "debounceMS": 20,
-  "nsAppTransportSecurity": {
-    "NSAllowsArbitraryLoads": true,
-    "NSExceptionDomains": {
-      "discord.com": {
-        "NSExceptionAllowsInsecureHTTPLoads": true,
-        "NSExceptionMinimumTLSVersion": "1.0",
-        "NSIncludesSubdomains": true
-      }
-    }
+  "outputfilename": "discord",
+  "frontend": {
+    "dir": "./frontend",
+    "install": "",
+    "build": "",
+    "dev": "",
+    "package": "./frontend"
+  },
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "info": {
+    "companyName": "Your Company",
+    "productName": "Discord",
+    "productVersion": "1.0.0",
+    "copyright": "Copyright © 2025",
+    "comments": "A simple Discord wrapper built with Wails"
   }
 }
+
